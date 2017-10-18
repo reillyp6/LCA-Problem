@@ -1,40 +1,69 @@
-class Node
-{
-	int value;
-	Node left;
-	Node right;
-	
-	public Node (int item)
-	{
-		value = item;
-		left = null;
-		right = null;
-	}
-}
+import BinaryLCA.Node;
 
-public class BinaryLCA {
 
-	Node root;
-	
-	Node findLCA(int n1, int n2)
-	    {
-	        return findLCA(root, n1, n2);
-	    }
-	
-	Node findLCA(Node node, int n1, int n2)
-    {
-		 if (node == null)
-			 return null;
-	 
-	     if (node.value == n1 || node.value == n2)
-	    	 return node;
-	
-	     Node left_lca = findLCA(node.left, n1, n2);
-	     Node right_lca = findLCA(node.right, n1, n2);
-	
-	     if (left_lca!=null && right_lca!=null)
-	    	 return node;
-	 
-	     return (left_lca != null) ? left_lca : right_lca;
+public class BinaryLCA<Key extends Comparable<Key>, Value> {
+    private Node root;             // root of BST
+
+    /**
+     * Private node class.
+     */
+    private class Node {
+        private Key key;           // sorted by key
+        private Value val;         // associated data
+        private Node left, right;  // left and right subtrees
+        private int N;             // number of nodes in subtree
+
+        public Node(Key key, Value val, int N) {
+            this.key = key;
+            this.val = val;
+            this.N = N;
+        }
     }
+
+    //are there any nodes in the tree?
+    public boolean isEmpty() { return size() == 0; }
+
+    //returns the number of key/value pairs that are present in tree
+    private int size(Node x) {
+        
+    }
+
+    //searches for node with given key value
+    //return true if found or false otherwise
+    public boolean contains(Key key) {
+        return get(key) != null;
+    }
+    
+    //returns the Lowest Common Ancestor for 2 passed values
+    public Value findLCA(Key key1, Key key2)
+    {
+    	return findLCA(root, key1, key2);
+    }
+    
+    private Value findLCA(Node node, Key key1, Key key2)
+    {
+    	
+    }
+
+    //returns the value associated with the passed key
+    public Value get(Key key)
+    { 
+    	return get(root, key);
+    }
+
+    private Value get(Node x, Key key) {
+        
+    }
+
+   //inserts a key/value pair into tree
+   //if the key is already present update with new value
+    public void put(Key key, Value val) {
+        if (val == null) { delete(key); return; }
+        root = put(root, key, val);
+    }
+
+    private Node put(Node x, Key key, Value val) {
+        
+    }
+
 }
