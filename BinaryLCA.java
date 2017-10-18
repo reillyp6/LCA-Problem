@@ -21,11 +21,13 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
     }
 
     //are there any nodes in the tree?
-    public boolean isEmpty() { return size() == 0; }
+    public boolean isEmpty() { return size(root) == 0; }
 
     //returns the number of key/value pairs that are present in tree
-    private int size(Node x) {
-        
+    private int size(Node x) 
+    {
+    	if (x == null) return 0;
+        else return x.N;
     }
 
     //searches for node with given key value
@@ -56,14 +58,45 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
     }
 
    //inserts a key/value pair into tree
-   //if the key is already present update with new value
-    public void put(Key key, Value val) {
-        if (val == null) { delete(key); return; }
+    public void put(Key key, Value val) 
+    {
         root = put(root, key, val);
     }
 
-    private Node put(Node x, Key key, Value val) {
-        
+    private Node put(Node x, Key key, Value val) 
+    {
+    	if (x == null) return new Node(key, val, 1);
+        int cmp = key.compareTo(x.key);
+        if      (cmp < 0) x.left  = put(x.left,  key, val);
+        else if (cmp > 0) x.right = put(x.right, key, val);
+        else              x.val   = val;
+        x.N = 1 + size(x.left) + size(x.right);
+        return x;
     }
+    
+    //returns a String with all keys of tree in order
+    public String printKeysInOrder() 
+    {
+      if (isEmpty()) 
+	  {
+    	  return "()";
+      }
+
+      return printKeysInOrder(root);
+    }
+    
+    private String printKeysInOrder(Node a)
+    {
+    	if(a == null)
+    	{
+    		return "()";
+    	}
+    	
+    	else
+    	{
+    		return "(" + (printKeysInOrder(a.left)) + (a.key.toString()) + printKeysInOrder(a.right) + ")";
+    	}
+    }
+    
 
 }
