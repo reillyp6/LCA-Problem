@@ -1,13 +1,13 @@
-import BinaryLCA.Node;
 
 
-public class BinaryLCA<Key extends Comparable<Key>, Value> {
+public class BinaryLCA<Key extends Comparable<Key>, Value> 
+{
+	
     private Node root;             // root of BST
 
-    /**
-     * Private node class.
-     */
-    private class Node {
+   
+    private class Node 
+    {
         private Key key;           // sorted by key
         private Value val;         // associated data
         private Node left, right;  // left and right subtrees
@@ -21,7 +21,10 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
     }
 
     //are there any nodes in the tree?
-    public boolean isEmpty() { return size(root) == 0; }
+    public boolean isEmpty() 
+    {
+    	return size(root) == 0; 
+    }
 
     //returns the number of key/value pairs that are present in tree
     private int size(Node x) 
@@ -32,7 +35,8 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
 
     //searches for node with given key value
     //return true if found or false otherwise
-    public boolean contains(Key key) {
+    public boolean contains(Key key) 
+    {
         return get(key) != null;
     }
     
@@ -44,7 +48,24 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
     
     private Value findLCA(Node node, Key key1, Key key2)
     {
-    	
+    	//if empty tree
+		 if (node == null)
+			 return null;
+		 
+		 //keys aren't present in tree
+		 if(contains(key1)==false || contains(key2)==false)
+			 return null;
+	 
+	     if (node.key == key1 || node.key == key2)
+	    	 return node.val;
+	
+	     Value left_lca = findLCA(node.left, key1, key2);
+	     Value right_lca = findLCA(node.right, key1, key2);
+	
+	     if (left_lca!=null && right_lca!=null)
+	    	 return node.val;
+	 
+	     return (left_lca != null) ? left_lca : right_lca;
     }
 
     //returns the value associated with the passed key
@@ -115,5 +136,4 @@ public class BinaryLCA<Key extends Comparable<Key>, Value> {
     	}
     }
     
-
 }
