@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import DAG_LCA.Node;
+
 public class  DAG
 	{
 	    public class Node
@@ -27,7 +29,10 @@ public class  DAG
 	    
 	    public Node addNode(int id)
 	    {
-	    	
+	    	Node node = new Node(id);
+	        nodeList.add(0, node);
+	
+	        return nodeList.get(0);
 	    }
 	    
 	    
@@ -43,7 +48,10 @@ public class  DAG
 	    
 	    public boolean contains(int id)
 	    {
+	    	if(getNode(id)== null)
+	    		return false;
 	    	
+	    	return true;
 	    }
 	}
   
