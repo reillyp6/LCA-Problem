@@ -43,7 +43,7 @@ public class DAGTest {
 		
 		assertEquals(2, test.outdegree(0));	
 		assertEquals(2, test.outdegree(0));	
-		assertEquals(1, test.outdegree(2));
+		assertEquals(-1, test.outdegree(9));
 	}
 	
 	@Test
