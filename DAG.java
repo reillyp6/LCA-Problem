@@ -45,7 +45,7 @@ public class DAG {
 	{
 		return vert;	
 	}
-	
+
 	public int edge() 
 	{
         return edge;
@@ -72,15 +72,15 @@ public class DAG {
 
 	}
 	
-	public int outdegree(int v)
+	public int outdegree(int a)
 	{
-		if(checkVert(v)<0)
+		if(checkVert(a)<0)
 		{
 			return -1;
 		}
 		else
 		{
-			return neighbours[v].size();
+			return neighbours[a].size();
 		}
 
     }
@@ -95,10 +95,26 @@ public class DAG {
         return cyclic;
     }
 	
-	 public void findCycle(int v) 
+	 public void findCycle(int a) 
 	 {
+	        visited[a] = true;
+	        stack[a] = true;
 
-	        
+	        for (int b : neighbours(a)) 
+	        {
+	            if(!visited[b]) 
+	            {
+	                findCycle(b);
+	            } 
+	            else if (stack[b]) 
+	            {
+	                cyclic = true;
+	                return;
+	            }
+	        }
+
+	        stack[a] = false;
+   
 	 }
 	 
 	public int findLCA(int v, int w)
@@ -108,14 +124,45 @@ public class DAG {
 	
 	
 	
-    public ArrayList<Integer> BFS(int s)
+    public ArrayList<Integer> BFS(int a)
     {
-       
+    	boolean visited[] = new boolean[vert];
+    	 
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+        ArrayList<Integer> order= new ArrayList<Integer>();
+ 
+        visited[a]=true;
+        queue.add(a);
         
+ 
+        while (queue.size() != 0)
+        {
+           
+            a = queue.poll();           
+            order.add(a);
+            Iterator<Integer> i = neighbours[a].listIterator();
+            while (i.hasNext())
+            {
+                int n = i.next();
+                if (!visited[n])
+                {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        } 
+        return order;
     }
     
     public DAG reverse() 
     {
-       
+        DAG reverse = new DAG(vert);
+        for (int v = 0; v < vert; v++) {
+            for (int w : neighbours(v)) {
+                reverse.addEdge(w, v);
+            }
+        }
+        return reverse;
+
     }
 }

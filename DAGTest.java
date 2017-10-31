@@ -47,15 +47,18 @@ public class DAGTest {
 	}
 	
 	@Test
-	public void testIsCyclic()
-	{
-		
-	}
-	
-	@Test
 	public void testFindCycle()
 	{
-			
+		DAG cyclic = new DAG(20);
+		cyclic.addEdge(0, 1);
+		cyclic.addEdge(1, 2);
+		cyclic.addEdge(2, 3);
+		cyclic.addEdge(2, 6);
+		cyclic.addEdge(3, 1);
+	
+		cyclic.findCycle(0);
+		
+		assertTrue(cyclic.isCyclic());
 	}
 
 	@Test
