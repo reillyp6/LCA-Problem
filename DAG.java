@@ -119,7 +119,46 @@ public class DAG {
 	 
 	public int findLCA(int v, int w)
 	{
+		findCycle(0);
+		if(cyclic)
+		{
+			return -1;
+		}
+		if(checkVert(v)<0||checkVert(w)<0)
+		{
+			
+			return -1;
+		}
+		if(edge==0){
+			
+			return -1;
+		}
 		
+		DAG backwards = reverse();
+		
+		ArrayList<Integer> arr1 = backwards.BFS(v);
+		ArrayList<Integer> arr2 = backwards.BFS(w);
+		ArrayList<Integer> commonAncestors = new ArrayList<Integer>();
+		boolean found = false;
+		for(int i = 0; i<arr1.size(); i++)
+		{
+				for(int t = 0; t<arr2.size(); t++)
+				{		
+					if(arr1.get(i)==arr2.get(t))
+					{
+						commonAncestors.add(arr1.get(i));	
+						found = true;
+					}
+				}
+		}
+		
+		if(found)
+			
+			return commonAncestors.get(0);
+		else
+			
+			return -1;
+
 	}
 	
 	

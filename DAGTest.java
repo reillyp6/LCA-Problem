@@ -64,7 +64,25 @@ public class DAGTest {
 	@Test
 	public void testFindLCA() 
 	{
+		DAG test = new DAG(11);
+		test.addEdge(0, 1);
+		test.addEdge(1, 2);
+		test.addEdge(2, 3);
+		
+		assertEquals(2, test.findLCA(2, 3));
 		
 	}
 	
+	@Test
+	public void testFindLCAWhenCyclic()
+	{
+		DAG test2 = new DAG(6);
+		test2.addEdge(0, 1);
+		test2.addEdge(1, 2);
+		test2.addEdge(2, 3);
+		test2.addEdge(2, 6);
+		test2.addEdge(3, 1);
+		
+		assertEquals("Test findLCA for cyclic graph", -1, test2.findLCA(2, 3));
+	}
 }
