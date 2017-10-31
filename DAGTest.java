@@ -4,13 +4,6 @@ import org.junit.Test;
 public class DAGTest {
 	
 	@Test
-	public void testDiGraph()
-	{
-	
-	}
-	
-	
-	@Test
 	public void testAddEdge()
 	{
 		DAG test = new DAG(5);
@@ -20,7 +13,7 @@ public class DAGTest {
 		//should do nothing
 		test.addEdge(-4, -9);
 		
-		//This should not either as 11>5 
+		//This should not do anything either as 11>5 
 		test.addEdge(3, 11);
 		assertEquals("Number of edges should be 1", 1, test.edge());
 
@@ -29,13 +22,28 @@ public class DAGTest {
 	@Test
 	public void testinDegree()
 	{
+		DAG test = new DAG(7);
+		test.addEdge(0, 3);
+		test.addEdge(0, 4);
+		test.addEdge(1, 2);
 		
+		assertEquals(-1, test.indegree(8));
+		assertEquals(0, test.indegree(1));
+		assertEquals(1, test.indegree(2));
+
 	}
 	
 	@Test
 	public void testOutDegree()
 	{
-			
+		DAG test = new DAG(7);
+		test.addEdge(0, 2);
+		test.addEdge(2, 3);
+		test.addEdge(0, 3);
+		
+		assertEquals(2, test.outdegree(0));	
+		assertEquals(2, test.outdegree(0));	
+		assertEquals(1, test.outdegree(2));
 	}
 	
 	@Test

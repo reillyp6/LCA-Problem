@@ -24,10 +24,9 @@ public class DAG {
 	    {
 	        neighbours[v] = new ArrayList<Integer>();
 	    }              
-   
 	}
 	
-	//adds edge between 2 integer values a and b
+	//adds edge between 2 integer values a and b, as long as no. of vertices is non negative
 	public void addEdge(int a, int b)
 	{
 		if((checkVert(a)>0)&&(checkVert(b)>0))
@@ -38,9 +37,8 @@ public class DAG {
 	    }
 	    else
 	    {
-	    	System.out.println("Please enter vertices between 0 & n-1");
+	    	System.out.println("Please enter a non-negative value for vertices");
 	    }
-	
 	}
 
 	public int vert() 
@@ -53,22 +51,38 @@ public class DAG {
         return edge;
     }
 	
-	private int checkVert(int v)
+	private int checkVert(int a)
 	{
-		if (v < 0 || v >= vert)
+		if (a < 0 || a >= vert)
         	return -1;
         else
         	return 1;
     }
 
-	public int indegree(int v)
+	public int indegree(int a)
 	{
-		
+		if(checkVert(a)<0)
+		{
+			return -1;
+		}
+		else
+		{
+			return indegree[a];
+		}
+
 	}
 	
 	public int outdegree(int v)
 	{
-		
+		if(checkVert(v)<0)
+		{
+			return -1;
+		}
+		else
+		{
+			return neighbours[v].size();
+		}
+
     }
 		
 	public Iterable<Integer> neighbours(int v)
@@ -78,7 +92,6 @@ public class DAG {
 
 	public boolean isCyclic() 
 	{
-
         return cyclic;
     }
 	
